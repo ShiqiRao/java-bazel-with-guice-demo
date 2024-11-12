@@ -1,16 +1,18 @@
-# 如何从0初始化一个Bazel+Guice项目
+# How to Initialize a Bazel + Guice Project from Scratch
 
-## 实现流程
-1. 编写WORKSPACE以及BUILD文件，以定义编译流程以及外部依赖。（BUILD文件中的依赖声明仅需要group id以及artifact id）
-2. 初始化一个包含main方法的主类。
-3. 使用Bazel插件重新引入项目，或者执行同步命令。
-4. 采用@Inject+构造器注入的方式，编写需要被注入的类（以下称之为"待注入类"）。
-5. 编写Module类。如果存在相同类型的依赖项，可以结合@Qualifier声明自定义注解。 
-分别在Module类以及待注入类使用，以表明注入与待注入的关系。
-6. 在主类中声明Injector与Instance，进行相应方法调用。最终完成基于Guice的依赖注入。
+## Process
 
-## 发布
+1. Write the WORKSPACE and BUILD files to define the compilation process and external dependencies. (The dependency declarations in the BUILD file only require the group id and artifact id.)
+2. Initialize a main class that contains the main method.
+3. Re-introduce the project using the Bazel plugin or execute the synchronization command.
+4. Write the classes that need to be injected (hereinafter referred to as the "classes to be injected") by using the @Inject + constructor injection method.
+5. Write the Module class. If there are dependencies of the same type, you can combine the @Qualifier declaration to define custom annotations. Use them in the Module class and the classes to be injected respectively to indicate the relationship between injection and being injected.
+6. Declare the Injector and Instance in the main class and make corresponding method calls. Finally, complete the dependency injection based on Guice.
+
+## Build
+
 bazel build //:app_deploy.jar
 
-## 运行
+## Run
+
 java -jar bazel-bin/app_deploy.jar
